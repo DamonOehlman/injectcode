@@ -29,6 +29,12 @@ var reInclude = /^\s*\<{3}(\w*?)\s+([^\s\[]+)\[(\d*)\:(\d*)\]?/;
   Would output the specified file with the inject directives replaced with
   the code snippets resolved against the current working directory.
 
+  The following is a simple example that is used to test injectcode, and
+  demonstates also how ranged expressions can be used to select only
+  some of the content of the source file.
+
+  <<< test/sample.md
+
   ### TODO
 
   - Implement the remote include functionality that gendocs has.
