@@ -1,0 +1,31 @@
+{
+  "name": "injectcode",
+  "version": "0.0.0",
+  "description": "A simple command-line tool for injecting code snippets into markdown files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gendocs": "gendocs > README.md"
+  },
+  "bin": {
+    "injectcode": "bin/injectcode"
+  },
+  "preferGlobal": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DamonOehlman/injectcode.git"
+  },
+  "keywords": [
+    "cli",
+    "inject",
+    "markdown"
+  ],
+  "author": "Damon Oehlman <damon.oehlman@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DamonOehlman/injectcode/issues"
+  },
+  "dependencies": {
+    "async": "~0.2.9"
+  }
+}

@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+var injectcode = require('../');
+var stdin = process.stdin;
+var chunks = [];
+
+stdin.on('data', function(data) {
+  chunks[chunks.length] = data.toString();
+});
+
+stdin.on('end', function() {
+  injectcode(chunks.join(''), function(err, output) {
+    if (err) {
+      console.error(err);
+      return process.exit(1);
+    }
+
+    console.log(output);
+  });
+});
