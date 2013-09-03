@@ -5,7 +5,7 @@ var async = require('async');
 var fs = require('fs');
 var path = require('path');
 var reLineBreak = /\n\r?/;
-var reInclude = /^\s*\<{3}(\w*?)\s+(\S+)/;
+var reInclude = /^\s*\<{3}(\w*?)\s+([^\s\[]+)\[(\d*)\:(\d*)\]?/;
 
 /**
   # injectcode
@@ -45,6 +45,17 @@ module.exports = function(source, callback) {
   });
 };
 
+function getRange(content, start, end) {
+  var lines = content.split(reLineBreak);
+
+  // determine the start and end indexes
+  start = (start ? parseInt(start, 10) : 1) - 1;
+  end = (end ? parseInt(end, 10) : lines.length) - 1;
+
+  // return the extract
+  return lines.slice(start, end + 1).join('\n');
+}
+
 function processLine(line, callback) {
   var match = line && reInclude.exec(line);
   var fileType;
@@ -61,6 +72,11 @@ function processLine(line, callback) {
   fs.readFile(match[2], 'utf8', function(err, content) {
     if (err) {
       return callback(err);
+    }
+
+    // if we have lines specified get the target content
+    if (match[3] || match[4]) {
+      content = getRange(content, match[3], match[4]);
     }
 
     return callback(null, '```' + fileType + '\n' + content + '\n```');
