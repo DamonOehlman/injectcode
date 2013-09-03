@@ -5,7 +5,7 @@ var async = require('async');
 var fs = require('fs');
 var path = require('path');
 var reLineBreak = /\n\r?/;
-var reInclude = /^\s*\<{3}(\w*?)\s+([^\s\[]+)\[(\d*)\:(\d*)\]?/;
+var reInclude = /^\s*\<{3}(\w*?)\s+([^\s\[]+)\[?(\d*)\:?(\d*)\]?/;
 
 /**
   # injectcode
