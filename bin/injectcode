@@ -17,3 +17,5 @@ stdin.on('end', function() {
     console.log(output);
   });
 });
+
+stdin.resume();
