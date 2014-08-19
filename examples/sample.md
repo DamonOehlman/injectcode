@@ -1,9 +1,9 @@
 This is a sample
 
-<<< test/test.js[:2]
+<<< examples/test.js[:2]
 
-<<< test/test.js[4:6]
+<<< examples/test.js[4:6]
 
-<<< test/test.js[10:]
+<<< examples/test.js[10:]
 
-<<< test/simple.js
+<<< examples/simple.js
