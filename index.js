@@ -5,7 +5,10 @@ var async = require('async');
 var fs = require('fs');
 var path = require('path');
 var reLineBreak = /\n\r?/;
-var reInclude = /^\s*\<{3}(\w*?)\s+([^\s\[]+)\[?(\d*)\:?(\d*)\]?/;
+var reInclude = [
+  /^\s*\<{3}(\w*?)\s+([^\s\[]+)\[?(\d*)\:?(\d*)\]?/,
+  /^\s*\[(.*?)]\((\S+)\s?\"?(\d*)\:?(\d*)\"?\)/
+];
 
 /**
   # injectcode
@@ -66,7 +69,9 @@ function processLine(opts) {
   var cwd = (opts || {}).cwd || process.cwd();
 
   return function(line, callback) {
-    var match = line && reInclude.exec(line);
+    var match = line && reInclude.map(function(regex) {
+      return regex.exec(line);
+    }).filter(Boolean)[0];
     var fileType;
 
     // if not a match, then return the line unaltered
