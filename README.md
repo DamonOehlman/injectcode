@@ -12,6 +12,7 @@ here to a standalone implementation.
 [![NPM](https://nodei.co/npm/injectcode.png)](https://nodei.co/npm/injectcode/)
 
 
+
 ## Example Usage
 
 From the command line:
@@ -27,17 +28,7 @@ The following is a simple example that is used to test injectcode, and
 demonstates also how ranged expressions can be used to select only
 some of the content of the source file.
 
-```md
-This is a sample
-
-<<< test/test.js[:2]
-
-<<< test/test.js[4:6]
-
-<<< test/test.js[10:]
-
-<<< test/simple.js
-```
+ERROR: could not find: 
 
 ### TODO
 
@@ -47,7 +38,7 @@ This is a sample
 
 ### MIT
 
-Copyright (c) 2013 Damon Oehlman <damon.oehlman@gmail.com>
+Copyright (c) 2014 Damon Oehlman <damon.oehlman@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
