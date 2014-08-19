@@ -41,12 +41,12 @@ var reInclude = /^\s*\<{3}(\w*?)\s+([^\s\[]+)\[?(\d*)\:?(\d*)\]?/;
 
 **/
 
-module.exports = function(source, callback) {
+module.exports = function(source, opts, callback) {
   // first split the source on line breaks
   var lines = source.split(reLineBreak);
 
   // replace any lines with includes
-  async.map(lines, processLine, function(err, results) {
+  async.map(lines, processLine(opts), function(err, results) {
     callback(err, err ? lines : results.join('\n'));
   });
 };
@@ -62,29 +62,33 @@ function getRange(content, start, end) {
   return lines.slice(start, end + 1).join('\n');
 }
 
-function processLine(line, callback) {
-  var match = line && reInclude.exec(line);
-  var fileType;
+function processLine(opts) {
+  var cwd = (opts || {}).cwd || process.cwd();
 
-  // if not a match, then return the line unaltered
-  if (! match) {
-    return callback(null, line);
-  }
+  return function(line, callback) {
+    var match = line && reInclude.exec(line);
+    var fileType;
 
-  // get the filetype
-  fileType = match[1] || path.extname(match[2]).slice(1);
-
-  // console.log(fileType);
-  fs.readFile(match[2], 'utf8', function(err, content) {
-    if (err) {
-      return callback(err);
+    // if not a match, then return the line unaltered
+    if (! match) {
+      return callback(null, line);
     }
 
-    // if we have lines specified get the target content
-    if (match[3] || match[4]) {
-      content = getRange(content, match[3], match[4]);
-    }
+    // get the filetype
+    fileType = match[1] || path.extname(match[2]).slice(1);
 
-    return callback(null, '```' + fileType + '\n' + content + '\n```');
-  });
+    // console.log(fileType);
+    fs.readFile(path.resolve(cwd, match[2]), 'utf8', function(err, content) {
+      if (err) {
+        return callback(err);
+      }
+
+      // if we have lines specified get the target content
+      if (match[3] || match[4]) {
+        content = getRange(content, match[3], match[4]);
+      }
+
+      return callback(null, '```' + fileType + '\n' + content + '\n```');
+    });
+  };
 }

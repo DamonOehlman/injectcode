@@ -8,7 +8,7 @@ stdin.on('data', function(data) {
 });
 
 stdin.on('end', function() {
-  injectcode(chunks.join(''), function(err, output) {
+  injectcode(chunks.join(''), { cwd: process.cwd() }, function(err, output) {
     if (err) {
       console.error(err);
       return process.exit(1);
