@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "gendocs": "gendocs > README.md",
-    "demo": "./bin/injectcode < examples/sample.md"
+    "demo": "./bin/injectcode < examples/sample.md",
+    "demo2": "./bin/injectcode < examples/sample-links.md"
   },
   "bin": {
     "injectcode": "bin/injectcode"
