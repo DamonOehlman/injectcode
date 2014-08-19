@@ -10,10 +10,9 @@
   "bin": {
     "injectcode": "bin/injectcode"
   },
-  "preferGlobal": true,
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/DamonOehlman/injectcode.git"
+    "url": "https://github.com/DamonOehlman/injectcode.git"
   },
   "keywords": [
     "cli",
@@ -23,7 +22,7 @@
   "author": "Damon Oehlman <damon.oehlman@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://bitbucket.org/DamonOehlman/injectcode/issues"
+    "url": "https://github.com/DamonOehlman/injectcode/issues"
   },
   "dependencies": {
     "async": "~0.8"
