@@ -6,8 +6,8 @@ var fs = require('fs');
 var path = require('path');
 var reLineBreak = /\n\r?/;
 var reInclude = [
-  /^\s*\<{3}(\w*?)\s+([^\s\[]+)\[?(\d*)\:?(\d*)\]?/,
-  /^\s*(\w+)?\:?\[.*?]\((\S+)\s?\"?(\d*)\:?(\d*)\"?\)/
+  /^(\s*)\<{3}(\w*?)\s+([^\s\[]+)\[?(\d*)\:?(\d*)\]?/,
+  /^(\s*)(\w+)?\:?\[.*?]\((\S+)\s?\"?(\d*)\:?(\d*)\"?\)/
 ];
 
 /**
@@ -80,20 +80,26 @@ function processLine(opts) {
     }
 
     // get the filetype
-    fileType = match[1] || path.extname(match[2]).slice(1);
+    fileType = match[2] || path.extname(match[3]).slice(1);
 
     // console.log(fileType);
-    fs.readFile(path.resolve(cwd, match[2]), 'utf8', function(err, content) {
+    fs.readFile(path.resolve(cwd, match[3]), 'utf8', function(err, content) {
+      var outputLines;
+
       if (err) {
         return callback(err);
       }
 
       // if we have lines specified get the target content
-      if (match[3] || match[4]) {
-        content = getRange(content, match[3], match[4]);
+      if (match[4] || match[5]) {
+        content = getRange(content, match[4], match[5]);
       }
 
-      return callback(null, '```' + fileType + '\n' + content + '\n```');
+      outputLines = [
+        match[1] + '```' + fileType
+      ].concat(content.split(reLineBreak)).concat(['```']);
+
+      return callback(null, outputLines.join('\n' + match[1]));
     });
   };
 }
