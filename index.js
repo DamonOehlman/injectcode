@@ -73,6 +73,7 @@ function processLine(opts) {
       return regex.exec(line);
     }).filter(Boolean)[0];
     var fileType;
+    var fileName;
 
     // if not a match, then return the line unaltered
     if (! match) {
@@ -81,25 +82,31 @@ function processLine(opts) {
 
     // get the filetype
     fileType = match[2] || path.extname(match[3]).slice(1);
+    fileName = path.resolve(cwd, match[3]);
 
-    // console.log(fileType);
-    fs.readFile(path.resolve(cwd, match[3]), 'utf8', function(err, content) {
-      var outputLines;
-
-      if (err) {
-        return callback(err);
+    fs.exists(fileName, function(exists) {
+      if (! exists) {
+        return callback(null, line);
       }
 
-      // if we have lines specified get the target content
-      if (match[4] || match[5]) {
-        content = getRange(content, match[4], match[5]);
-      }
+      fs.readFile(fileName, 'utf8', function(err, content) {
+        var outputLines;
 
-      outputLines = [
-        match[1] + '```' + fileType
-      ].concat(content.split(reLineBreak)).concat(['```']);
+        if (err) {
+          return callback(err);
+        }
 
-      return callback(null, outputLines.join('\n' + match[1]));
+        // if we have lines specified get the target content
+        if (match[4] || match[5]) {
+          content = getRange(content, match[4], match[5]);
+        }
+
+        outputLines = [
+          match[1] + '```' + fileType
+        ].concat(content.split(reLineBreak)).concat(['```']);
+
+        return callback(null, outputLines.join('\n' + match[1]));
+      });
     });
   };
 }
