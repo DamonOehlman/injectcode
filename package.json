@@ -27,7 +27,7 @@
     "url": "https://github.com/DamonOehlman/injectcode/issues"
   },
   "dependencies": {
-    "async": "^0.9.0"
+    "async": "^2.1.4"
   },
   "devDependencies": {
     "tape": "^4.6.2"
