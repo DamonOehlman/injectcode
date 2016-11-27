@@ -29,11 +29,29 @@ var reLineBreak = /\n\r?/;
   Would output the specified file with the inject directives replaced with
   the code snippets resolved against the current working directory.
 
-  The following is a simple example that is used to test injectcode, and
-  demonstates also how ranged expressions can be used to select only
-  some of the content of the source file.
+  #### Valid Patterns
 
-  <<< test/sample.md
+  - `<<< filename.fileext`
+    
+    Inline the contents of the file as a ghfm code block using `fileext` as the
+    language type.
+  
+  - `<<<langtype filename.fileext`
+
+    Inline contents as above, but override the ghfm code block language type
+    with `langtype`.
+  
+  - `<<< filename.fileext[n:m]`
+
+    Inline the contents, from line `n` to line `m`.
+  
+  - `<<< filename.fileext[n:]`
+
+    Inline the file contents, from line `n` to the end of the file.
+
+  - `<<< filename.fileext[:m]`
+
+    Inline the file contents, from the start of teh file to line `m`. 
 
   ### TODO
 

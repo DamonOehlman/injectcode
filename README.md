@@ -1,3 +1,4 @@
+
 # injectcode
 
 This is a simple helper that will parse a file and replace any inject
@@ -11,7 +12,7 @@ here to a standalone implementation.
 
 [![NPM](https://nodei.co/npm/injectcode.png)](https://nodei.co/npm/injectcode/)
 
-
+[![Build Status](https://api.travis-ci.org/DamonOehlman/injectcode.svg?branch=master)](https://travis-ci.org/DamonOehlman/injectcode) [![bitHound Score](https://www.bithound.io/github/DamonOehlman/injectcode/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/injectcode) 
 
 ## Example Usage
 
@@ -24,11 +25,29 @@ injectcode < README.md
 Would output the specified file with the inject directives replaced with
 the code snippets resolved against the current working directory.
 
-The following is a simple example that is used to test injectcode, and
-demonstates also how ranged expressions can be used to select only
-some of the content of the source file.
+#### Valid Patterns
 
-ERROR: could not find: 
+- `<<< filename.fileext`
+  
+  Inline the contents of the file as a ghfm code block using `fileext` as the
+  language type.
+
+- `<<<langtype filename.fileext`
+
+  Inline contents as above, but override the ghfm code block language type
+  with `langtype`.
+
+- `<<< filename.fileext[n:m]`
+
+  Inline the contents, from line `n` to line `m`.
+
+- `<<< filename.fileext[n:]`
+
+  Inline the file contents, from line `n` to the end of the file.
+
+- `<<< filename.fileext[:m]`
+
+  Inline the file contents, from the start of teh file to line `m`. 
 
 ### TODO
 
@@ -38,7 +57,7 @@ ERROR: could not find:
 
 ### MIT
 
-Copyright (c) 2014 Damon Oehlman <damon.oehlman@gmail.com>
+Copyright (c) 2016 Damon Oehlman <damon.oehlman@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
