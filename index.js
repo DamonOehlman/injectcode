@@ -4,11 +4,8 @@
 var async = require('async');
 var fs = require('fs');
 var path = require('path');
+var matcher = require('./matcher');
 var reLineBreak = /\n\r?/;
-var reInclude = [
-  /^(\s*)\<{3}(\w*?)\s+([^\s\[]+)\[?(\d*)\:?(\d*)\]?/,
-  /^(\s*)(\w+)?\:?\[.*?]\((\S+)\s?\"?(\d*)\:?(\d*)\"?\)/
-];
 
 /**
   # injectcode
@@ -58,38 +55,29 @@ function getRange(content, start, end) {
   var lines = content.split(reLineBreak);
 
   // determine the start and end indexes
-  start = (start ? parseInt(start, 10) : 1) - 1;
-  end = (end ? parseInt(end, 10) : lines.length) - 1;
+  start = (start ? start : 1) - 1;
+  end = (end ? end : lines.length) - 1;
 
   // return the extract
   return lines.slice(start, end + 1).join('\n');
 }
 
 function processLine(opts) {
-  var cwd = (opts || {}).cwd || process.cwd();
-
   return function(line, callback) {
-    var match = line && reInclude.map(function(regex) {
-      return regex.exec(line);
-    }).filter(Boolean)[0];
-    var fileType;
-    var fileName;
+    var match = line && matcher.exec(line, opts);
+    var matchData = matcher.process(match, opts);
 
     // if not a match, then return the line unaltered
-    if (! match) {
+    if (! matchData) {
       return callback(null, line);
     }
 
-    // get the filetype
-    fileType = match[2] || path.extname(match[3]).slice(1);
-    fileName = path.resolve(cwd, match[3]);
-
-    fs.exists(fileName, function(exists) {
+    fs.exists(matchData.fileName, function(exists) {
       if (! exists) {
         return callback(null, line);
       }
 
-      fs.readFile(fileName, 'utf8', function(err, content) {
+      fs.readFile(matchData.fileName, 'utf8', function(err, content) {
         var outputLines;
 
         if (err) {
@@ -97,8 +85,8 @@ function processLine(opts) {
         }
 
         // if we have lines specified get the target content
-        if (match[4] || match[5]) {
-          content = getRange(content, match[4], match[5]);
+        if (matchData.rangeStart|| matchData.rangeEnd) {
+          content = getRange(content, matchData.rangeStart, matchData.rangeEnd);
         }
 
         outputLines = [
