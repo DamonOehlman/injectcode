@@ -108,7 +108,7 @@ function processLine(opts) {
         }
 
         outputLines = [
-          match[1] + '```' + fileType
+          match[1] + '```' + matchData.fileType
         ].concat(content.split(reLineBreak)).concat(['```']);
 
         return callback(null, outputLines.join('\n' + match[1]));
