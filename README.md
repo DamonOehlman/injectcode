@@ -1,4 +1,3 @@
-
 # injectcode
 
 This is a simple helper that will parse a file and replace any inject
@@ -9,10 +8,9 @@ The functionality was originally implemented in
 [gendocs](https://github.com/DamonOehlman/gendocs) and has been ported
 here to a standalone implementation.
 
-
 [![NPM](https://nodei.co/npm/injectcode.png)](https://nodei.co/npm/injectcode/)
 
-[![Build Status](https://api.travis-ci.org/DamonOehlman/injectcode.svg?branch=master)](https://travis-ci.org/DamonOehlman/injectcode) [![bitHound Score](https://www.bithound.io/github/DamonOehlman/injectcode/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/injectcode) 
+[![Build Status](https://api.travis-ci.org/DamonOehlman/injectcode.svg?branch=master)](https://travis-ci.org/DamonOehlman/injectcode)
 
 ## Example Usage
 
@@ -27,53 +25,52 @@ the code snippets resolved against the current working directory.
 
 #### Valid Patterns
 
-- `<<< filename.fileext`
-  
-  Inline the contents of the file as a ghfm code block using `fileext` as the
-  language type.
+* `<<< filename.fileext`
 
-- `<<<langtype filename.fileext`
+Inline the contents of the file as a ghfm code block using `fileext` as the
+language type.
 
-  Inline contents as above, but override the ghfm code block language type
-  with `langtype`.
+* `<<<langtype filename.fileext`
 
-- `<<< filename.fileext[n:m]`
+Inline contents as above, but override the ghfm code block language type
+with `langtype`.
 
-  Inline the contents, from line `n` to line `m`.
+* `<<< filename.fileext[n:m]`
 
-- `<<< filename.fileext[n:]`
+Inline the contents, from line `n` to line `m`.
 
-  Inline the file contents, from line `n` to the end of the file.
+* `<<< filename.fileext[n:]`
 
-- `<<< filename.fileext[:m]`
+Inline the file contents, from line `n` to the end of the file.
 
-  Inline the file contents, from the start of teh file to line `m`. 
+* `<<< filename.fileext[:m]`
+
+Inline the file contents, from the start of teh file to line `m`.
 
 ### TODO
 
-- Implement the remote include functionality that gendocs has.
+* Implement the remote include functionality that gendocs has.
 
-## License(s)
+## LICENSE
 
-### MIT
+The MIT License (MIT)
 
-Copyright (c) 2016 Damon Oehlman <damon.oehlman@gmail.com>
+Copyright (c) 2020 Damon Oehlman <damon.oehlman@gmail.com>
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tape test/matcher.js",
-    "gendocs": "gendocs > README.md",
+    "gendocs": "embellish README.md",
     "demo": "cd examples && ../bin/injectcode < sample.md && cd ..",
     "demo2": "cd examples && ../bin/injectcode < sample-links.md && cd .."
   },
@@ -27,7 +27,8 @@
     "url": "https://github.com/DamonOehlman/injectcode/issues"
   },
   "dependencies": {
-    "async": "^3.2.0"
+    "async": "^3.2.0",
+    "embellish-readme": "^1.6.0"
   },
   "devDependencies": {
     "tape": "^5.0.1"
